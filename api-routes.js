@@ -17,26 +17,35 @@ router.get('/', function (req, res)
 //EndPoint para leer toda la base
 router.get('/leerAgenda',function(req,res)
 {
-    console.log("leer");
     apiController.getContactos(req,res);
 });
 //EndPoint para leer con filtro
 router.post('/leerAgenda/?idBusqueda',function(req,res)
 {
-    console.log("leer con filtro");
     apiController.getContactosById(req,res);
 });
 //EndPoint para insertar en la BD
-router.post('/insertContacto/Contacto',function(req,res)
+router.post('/insertInscripto/Inscripto',function(req,res)
 {
-    console.log(req.body);
-    apiController.insertContacto(req,res);
+    apiController.insertInscripto(req,res);
 });
 
 //EndPoint para modificar en la BD
-router.post('/updateContacto/Contacto',function(req,res)
+router.post('/updatePagado/Inscripto',function(req,res)
 {
-    apiController.updateContacto(req,res);
+    apiController.updatePagado(req,res);
+});
+
+//EndPoint para modificar en la BD
+router.post('/updateDatosInsc/Inscripto',function(req,res)
+{
+    apiController.updateDatosInsc(req,res);
+});
+
+//EndPoint para modificar en la BD
+router.post('/updateDatosTutor/Inscripto',function(req,res)
+{
+    apiController.updateDatosTutor(req,res);
 });
 
 //EndPoint para eliminar en la BD
