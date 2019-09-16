@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
     
 let getContactos = (req, res) =>
 {      
-    console.log("llegue a leer");
     //Listar resultados
     Contactos.find()
     .then
@@ -19,7 +18,6 @@ let getContactos = (req, res) =>
 };
 let getContactosById = (req, res) =>
 {      
-    console.log("llegue a leer con filtro");
     //Obtener id busqueda
     let idBusqueda = {dni: req.body.dniBuscado};
     console.log(idBusqueda);
@@ -40,12 +38,22 @@ let insertContacto = (req,res) =>
 {
     console.log(req.body);
     var newContacto = Contactos({
-        nombre: req.body.nombre,
-        domicilio: req.body.domicilio,
-        cumple: req.body.cumple,
-        dni: req.body.dni,
-        mail: req.body.mail
+        cNombre: req.body.cNombre,
+        cApellido: req.body.cApellido,
+        cSexo: req.body.cSexo,
+        cFecha: req.body.cFecha,
+        cDni: req.body.cDni,
+        cDomicilio: req.body.cDomicilio,
+        cSocio: req.body.cSocio,
+        cNumSocio: req.body.cNumSocio,
+        pNombre: req.body.pNombre,
+        pApellido: req.body.pApellido,
+        pTel: req.body.pTel,
+        pCel: req.body.pCel,
+        pWhapp: req.body.pWhapp,
+        pagado: req.body.pagado
     });
+
     newContacto.save().
     then
     (
@@ -56,6 +64,7 @@ let insertContacto = (req,res) =>
         (err)=>{console.log(err);}
     ) 
 }
+
 let updateContacto = (req,res) => 
 {
     let id = { dni : req.body.dniBuscado};

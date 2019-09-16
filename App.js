@@ -7,7 +7,7 @@ var cors = require('cors');
 var app = express();
 
 //conectar BD
-var urlBD = 'mongodb+srv://duenderojo:asdasd123@cluster0-c90dq.mongodb.net/test?retryWrites=true&w=majority';
+var urlBD = 'mongodb+srv://duenderojo:asdasd123@cluster0-c90dq.mongodb.net/duenderojo?retryWrites=true&w=majority';
 //opciones conexion
 var opts = {useNewUrlParser : true, useUnifiedTopology: true, connectTimeoutMS:20000};
 //importo driver
@@ -42,7 +42,7 @@ var port = process.env.PORT || 8080;
 app.get('/', (req, res) => res.send('Hello World with Express in Aplicaciones Interactivas'));
 
 // Use Api routes in the App
-app.use('/apiAgenda', apiRoutes);
+app.use('/apiColonia', apiRoutes);
 
 // Launch app to listen to specified port
 app.listen(port, function () {
