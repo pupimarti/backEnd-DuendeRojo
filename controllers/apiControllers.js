@@ -34,9 +34,8 @@ let getContactosById = (req, res) =>
     )       
 };
 
-let insertContacto = (req,res) =>
+let insertInscripto = (req,res) =>
 {
-    console.log(req.body);
     var newContacto = Contactos({
         cNombre: req.body.cNombre,
         cApellido: req.body.cApellido,
@@ -65,12 +64,50 @@ let insertContacto = (req,res) =>
     ) 
 }
 
-let updateContacto = (req,res) => 
+let updatePagado = (req,res) => 
 {
-    let id = { dni : req.body.dniBuscado};
-    let newContacto = {nombre: req.body.newData.nombre};
-    console.log(id);
-    console.log(newContacto);
+    let id = { cDni: req.body.dniBuscado };
+    let newContacto = { pagado: req.body.newData.pagado };
+    Contactos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
+    {
+        (err)=>{console.log(err);}
+        (newContacto)=>
+        {
+            res.send(newContacto); //devuelvo resultado query       
+        };
+    
+    });
+}
+
+let updateDatosInsc = (req,res) => 
+{
+    let id = { cDni: req.body.dniBuscado };
+    let newContacto = { cNombre: req.body.newData.cNombre, 
+                        cApellido: req.body.newData.cApellido,
+                        cSexo: req.body.newData.cSexo, 
+                        cFecha: req.body.newData.cFecha,
+                        cDomicilio: req.body.newData.cDomicilio, 
+                        cSocio: req.body.newData.cSocio,
+                        cNumSocio: req.body.newData.cNumSocio };
+    Contactos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
+    {
+        (err)=>{console.log(err);}
+        (newContacto)=>
+        {
+            res.send(newContacto); //devuelvo resultado query       
+        };
+    
+    });
+}
+
+let updateDatosTutor = (req,res) => 
+{
+    let id = { cDni: req.body.dniBuscado };
+    let newContacto = { pNombre: req.body.newData.pNombre, 
+                        pApellido: req.body.newData.pApellido,
+                        pTel: req.body.newData.pTel, 
+                        pCel: req.body.newData.pCel,
+                        pWhapp: req.body.newData.pWhapp};
     Contactos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
     {
         (err)=>{console.log(err);}
@@ -96,5 +133,5 @@ let deleteContacto = (req,res)=>
     )       
    
 }
-module.exports = {getContactos,insertContacto,updateContacto,deleteContacto,getContactosById};
+module.exports = {getContactos,insertInscripto,updatePagado,updateDatosInsc,updateDatosTutor,deleteContacto,getContactosById};
 
