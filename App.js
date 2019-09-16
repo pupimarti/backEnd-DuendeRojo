@@ -7,9 +7,9 @@ var cors = require('cors');
 var app = express();
 
 //conectar BD
-var urlBD = 'mongodb://localhost/test';
+var urlBD = 'mongodb+srv://duenderojo:asdasd123@cluster0-c90dq.mongodb.net/test?retryWrites=true&w=majority';
 //opciones conexion
-var opts = {useNewUrlParser : true, connectTimeoutMS:20000};
+var opts = {useNewUrlParser : true, useUnifiedTopology: true, connectTimeoutMS:20000};
 //importo driver
 var mongoose = require('mongoose');
 //Pruebo conexion
