@@ -15,35 +15,35 @@ router.get('/', function (req, res)
 });
 
 //EndPoint para leer toda la base
-router.get('/leerAgenda',function(req,res)
+router.get('/listaColonos',function(req,res)
 {
-    apiController.getContactos(req,res);
+    apiController.getColonos(req,res);
 });
 //EndPoint para leer con filtro
-router.post('/leerAgenda/?idBusqueda',function(req,res)
+router.post('/listaColonos/?idBusqueda',function(req,res)
 {
-    apiController.getContactosById(req,res);
+    apiController.getColonoById(req,res);
 });
 //EndPoint para insertar en la BD
-router.post('/insertInscripto/Inscripto',function(req,res)
+router.post('/addColono/Colono',function(req,res)
 {
-    apiController.insertInscripto(req,res);
+    apiController.addColono(req,res);
 });
 
 //EndPoint para modificar en la BD
-router.post('/updatePagado/Inscripto',function(req,res)
+router.post('/updatePagado/Colono',function(req,res)
 {
     apiController.updatePagado(req,res);
 });
 
 //EndPoint para modificar en la BD
-router.post('/updateDatosInsc/Inscripto',function(req,res)
+router.post('/updateDatosInsc/Colono',function(req,res)
 {
     apiController.updateDatosInsc(req,res);
 });
 
 //EndPoint para modificar en la BD
-router.post('/updateDatosTutor/Inscripto',function(req,res)
+router.post('/updateDatosTutor/Colono',function(req,res)
 {
     apiController.updateDatosTutor(req,res);
 });
