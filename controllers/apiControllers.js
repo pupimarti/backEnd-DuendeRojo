@@ -1,40 +1,40 @@
-var Contactos = require('../models/ContactoModel');
-var bodyParser = require('body-parser');
-
+var Colonos = require('../models/ContactoModel');
     
-let getContactos = (req, res) =>
+let getColonos = (req, res) =>
 {      
     //Listar resultados
-    Contactos.find()
+    Colonos.find()
     .then
     (
-        (listaContactos)=>
+        (listaColonos)=>
         {
-            res.send(listaContactos); //devuelvo resultado query   
-            //console.log(listaContactos);    
+            res.send(listaColonos); //devuelvo resultado query   
+            //console.log(listaColonos);    
         },
         (err)=>{console.log(err);}
     )       
 };
-let getContactosById = (req, res) =>
+
+
+let getColonoById = (req, res) =>
 {      
     //Obtener id busqueda
     let idBusqueda = {dni: req.body.dniBuscado};
     console.log(idBusqueda);
     //Listar resultados
-    Contactos.find(idBusqueda)
+    Colonos.find(idBusqueda)
     .then
     (
-        (listaContactos)=>
+        (colono)=>
         {
-            res.send(listaContactos); //devuelvo resultado query   
-            console.log(listaContactos);    
+            res.send(colono); //devuelvo resultado query   
+            console.log(colono);    
         },
         (err)=>{console.log(err);}
     )       
 };
 
-let insertInscripto = (req,res) =>
+let addColono = (req,res) =>
 {
     var newContacto = Contactos({
         cNombre: req.body.cNombre,
@@ -68,7 +68,7 @@ let updatePagado = (req,res) =>
 {
     let id = { cDni: req.body.dniBuscado };
     let newContacto = { pagado: req.body.newData.pagado };
-    Contactos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
+    Colonos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
     {
         (err)=>{console.log(err);}
         (newContacto)=>
@@ -89,7 +89,7 @@ let updateDatosInsc = (req,res) =>
                         cDomicilio: req.body.newData.cDomicilio, 
                         cSocio: req.body.newData.cSocio,
                         cNumSocio: req.body.newData.cNumSocio };
-    Contactos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
+                        Colonos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
     {
         (err)=>{console.log(err);}
         (newContacto)=>
@@ -108,7 +108,7 @@ let updateDatosTutor = (req,res) =>
                         pTel: req.body.newData.pTel, 
                         pCel: req.body.newData.pCel,
                         pWhapp: req.body.newData.pWhapp};
-    Contactos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
+                        Colonos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
     {
         (err)=>{console.log(err);}
         (newContacto)=>
@@ -122,7 +122,7 @@ let updateDatosTutor = (req,res) =>
 let deleteContacto = (req,res)=>
 {
     let id = { dni : req.body.dniEliminado};
-    Contactos.deleteOne(id)
+    Colonos.deleteOne(id)
     .then
     (
         (resultado)=>
@@ -133,5 +133,5 @@ let deleteContacto = (req,res)=>
     )       
    
 }
-module.exports = {getContactos,insertInscripto,updatePagado,updateDatosInsc,updateDatosTutor,deleteContacto,getContactosById};
+module.exports = {getColonos,addColono,updatePagado,updateDatosInsc,updateDatosTutor,deleteContacto,getColonoById};
 
