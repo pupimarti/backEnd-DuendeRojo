@@ -19,16 +19,14 @@ let getColonos = (req, res) =>
 let getColonoById = (req, res) =>
 {      
     //Obtener id busqueda
-    let idBusqueda = {dni: req.body.dniBuscado};
-    console.log(idBusqueda);
+    let idBusqueda = {cDni: req.body.dniBuscado};
     //Listar resultados
     Colonos.find(idBusqueda)
     .then
     (
         (colono)=>
         {
-            res.send(colono); //devuelvo resultado query   
-            console.log(colono);    
+            res.send(colono); //devuelvo resultado query     
         },
         (err)=>{console.log(err);}
     )       
