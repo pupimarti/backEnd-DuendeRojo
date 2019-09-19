@@ -3,7 +3,7 @@ var Colonos = require('../models/ContactoModel');
 let getColonos = (req, res) =>
 {      
     //Listar resultados
-    Colonos.find()
+    Colonos.find({},{"cNombre":1,"cApellido":1, "cDni":1 , "pagado":1})
     .then
     (
         (listaColonos)=>
@@ -36,7 +36,7 @@ let getColonoById = (req, res) =>
 
 let addColono = (req,res) =>
 {
-    var newContacto = Contactos({
+    var newContacto = Colonos({
         cNombre: req.body.cNombre,
         cApellido: req.body.cApellido,
         cSexo: req.body.cSexo,
@@ -50,11 +50,17 @@ let addColono = (req,res) =>
         pTel: req.body.pTel,
         pCel: req.body.pCel,
         pWhapp: req.body.pWhapp,
+        cCeliaco: req.body.cCeliaco,
+        cRespiratoria: req.body.cRespiratoria,
+        cERespiratoria: req.body.cERespiratoria,
+        cCorazon: req.body.cCorazon,
+        cECorazon: req.body.cECorazon,
+        cHeridas: req.body.cHeridas,
+        cEHeridas: req.body.cEHeridas,
         pagado: req.body.pagado
     });
 
-    newContacto.save().
-    then
+    newContacto.save().then
     (
         (newContacto)=>
         {
@@ -64,22 +70,15 @@ let addColono = (req,res) =>
     ) 
 }
 
-let updatePagado = (req,res) => 
+let updatePagado = async (req,res) => 
 {
     let id = { cDni: req.body.dniBuscado };
     let newContacto = { pagado: req.body.newData.pagado };
-    Colonos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
-    {
-        (err)=>{console.log(err);}
-        (newContacto)=>
-        {
-            res.send(newContacto); //devuelvo resultado query       
-        };
-    
-    });
+    await Colonos.findOneAndUpdate(id,newContacto)
+    res.json({status: 'Actualizado'});
 }
 
-let updateDatosInsc = (req,res) => 
+let updateDatosInsc = async (req,res) => 
 {
     let id = { cDni: req.body.dniBuscado };
     let newContacto = { cNombre: req.body.newData.cNombre, 
@@ -89,34 +88,34 @@ let updateDatosInsc = (req,res) =>
                         cDomicilio: req.body.newData.cDomicilio, 
                         cSocio: req.body.newData.cSocio,
                         cNumSocio: req.body.newData.cNumSocio };
-                        Colonos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
-    {
-        (err)=>{console.log(err);}
-        (newContacto)=>
-        {
-            res.send(newContacto); //devuelvo resultado query       
-        };
-    
-    });
+    await Colonos.findOneAndUpdate(id,newContacto)
+    res.json({status: 'Actualizado'});
 }
 
-let updateDatosTutor = (req,res) => 
+let updateDatosTutor = async (req,res) => 
 {
     let id = { cDni: req.body.dniBuscado };
     let newContacto = { pNombre: req.body.newData.pNombre, 
-                        pApellido: req.body.newData.pApellido,
-                        pTel: req.body.newData.pTel, 
-                        pCel: req.body.newData.pCel,
-                        pWhapp: req.body.newData.pWhapp};
-                        Colonos.findOneAndUpdate(id,newContacto,{new:true},function(err, todo)
-    {
-        (err)=>{console.log(err);}
-        (newContacto)=>
-        {
-            res.send(newContacto); //devuelvo resultado query       
-        };
-    
-    });
+        pApellido: req.body.newData.pApellido,
+        pTel: req.body.newData.pTel, 
+        pCel: req.body.newData.pCel,
+        pWhapp: req.body.newData.pWhapp};
+    await Colonos.findOneAndUpdate(id,newContacto)
+    res.json({status: 'Actualizado'});
+}
+
+let updateDatosMed = async (req,res) => 
+{
+    let id = { cDni: req.body.dniBuscado };
+    let newContacto = { cCeliaco: req.body.newData.cCeliaco, 
+        cRespiratoria: req.body.newData.cRespiratoria,
+        cERespiratoria: req.body.newData.cERespiratoria, 
+        cCorazon: req.body.newData.cCorazon,
+        cECorazon: req.body.newData.cECorazon, 
+        cHeridas: req.body.newData.cHeridas,
+        cEHeridas: req.body.newData.cEHeridas };
+    await Colonos.findOneAndUpdate(id,newContacto)
+    res.json({status: 'Actualizado'});
 }
 
 let deleteContacto = (req,res)=>
@@ -133,5 +132,5 @@ let deleteContacto = (req,res)=>
     )       
    
 }
-module.exports = {getColonos,addColono,updatePagado,updateDatosInsc,updateDatosTutor,deleteContacto,getColonoById};
+module.exports = {getColonos,addColono,updatePagado,updateDatosInsc,updateDatosTutor,updateDatosMed, deleteContacto,getColonoById};
 
