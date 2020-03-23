@@ -1,35 +1,53 @@
 var Colonos = require('../models/ContactoModel');
+var Configs = require('../models/ConfigModel');
+
+let getConfigs = (req, res) =>
+{      
+    //Listar resultados
+    Configs.find()
+    .then
+    (
+        (respuesta)=>
+        {
+            res.send(respuesta); //devuelvo resultado query   
+            console.log(respuesta);
+        },
+        (err)=>{console.log(err);}
+    )       
+};
+
     
 let getColonos = (req, res) =>
 {      
     //Listar resultados
-    Colonos.find({},{"cNombre":1,"cApellido":1, "cDni":1 , "pagado":1})
-    .then
-    (
-        (listaColonos)=>
+    Colonos.find({},{"numero":1, "cNombre":1,"cApellido":1, "cSocio":1, "cNumSocio":1, "pagado":1}, function(err,listaColonos)
+    {
+
+        res.status(200).send(listaColonos); //devuelvo resultado query   
+        (err)=>
         {
-            res.send(listaColonos); //devuelvo resultado query   
-            //console.log(listaColonos);    
-        },
-        (err)=>{console.log(err);}
-    )       
+            res.status(500).send(err);
+            console.log(err);
+        }
+    });    
 };
 
 
 let getColonoById = (req, res) =>
 {      
     //Obtener id busqueda
-    let idBusqueda = {cDni: req.body.dniBuscado};
+    let idBusqueda = {numero: req.body.dniBuscado};
     //Listar resultados
-    Colonos.find(idBusqueda)
-    .then
-    (
-        (colono)=>
+    Colonos.find(idBusqueda,function(err,colono)
+    {
+        res.status(200).send(colono); //devuelvo resultado query     
+        (err)=>
         {
-            res.send(colono); //devuelvo resultado query     
-        },
-        (err)=>{console.log(err);}
-    )       
+            res.status(500).send(err);
+            console.log(err);
+        }
+ 
+    });
 };
 
 let addColono = (req,res) =>
@@ -86,9 +104,11 @@ let updatePagado = async (req,res) =>
 {
     let id = { cDni: req.body.dniBuscado };
     let newColono = { pagado: req.body.newData.pagado };
-    await Colonos.findOneAndUpdate(id,newColono)
-    res.json({status: 'Actualizado'});
-}
+    await Colonos.findOneAndUpdate(id,newColono, function(){
+        res.status(200).send({status: 'Actualizado'});
+
+    });
+    }
 
 let updateDatosInsc = async (req,res) => 
 {
@@ -144,5 +164,4 @@ let deleteContacto = (req,res)=>
     )       
    
 }
-module.exports = {getColonos,addColono,updatePagado,updateDatosInsc,updateDatosTutor,updateDatosMed, deleteContacto,getColonoById};
-
+module.exports = {getConfigs, getColonos,addColono,updatePagado,updateDatosInsc,updateDatosTutor,updateDatosMed, deleteContacto,getColonoById};
