@@ -15,6 +15,12 @@ router.get('/', function (req, res)
 });
 
 //EndPoint para leer toda la base
+router.get('/getConfigs',function(req,res)
+{
+    apiController.getConfigs(req,res);
+});
+
+//EndPoint para leer toda la base
 router.get('/listaColonos',function(req,res)
 {
     apiController.getColonos(req,res);
@@ -46,6 +52,12 @@ router.post('/updateDatosInsc/Colono',function(req,res)
 router.post('/updateDatosTutor/Colono',function(req,res)
 {
     apiController.updateDatosTutor(req,res);
+});
+
+//EndPoint para modificar en la BD
+router.post('/updateDatosMed/Colono',function(req,res)
+{
+    apiController.updateDatosMed(req,res);
 });
 
 //EndPoint para eliminar en la BD
